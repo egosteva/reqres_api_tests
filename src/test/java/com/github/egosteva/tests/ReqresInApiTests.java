@@ -42,6 +42,7 @@ public class ReqresInApiTests {
     @DisplayName("Обновление данных пользователя")
     void updateUserModelsTest() {
         String userJob = "zion resident";
+
         UpdateUserBodyModel updateUserBody = new UpdateUserBodyModel();
         updateUserBody.setJob(userJob);
         UpdateUserResponseModel updateUserResponse = step("Отправить запрос на обновление пользователя", () ->
@@ -61,6 +62,7 @@ public class ReqresInApiTests {
     @DisplayName("Неуспешная регистрация")
     void unsuccessfulRegisterModelsTest() {
         String userEmail = "sydney@fife";
+
         UnsuccessfulRegisterBodyModel unsuccessfulRegisterBody = new UnsuccessfulRegisterBodyModel();
         unsuccessfulRegisterBody.setEmail(userEmail);
         UnsuccessfulRegisterResponseModel unsuccessfulRegisterResponse = step("Сделать запрос на регистрацию без указания пароля", () ->
@@ -71,6 +73,7 @@ public class ReqresInApiTests {
                         .then()
                         .spec(unsuccessfulRegisterResponseSpec)
                         .extract().as(UnsuccessfulRegisterResponseModel.class));
+
         step("Проверить, что в ответе текст ошибки 'Missing password'", () ->
                 assertThat(unsuccessfulRegisterResponse.getError()).isEqualTo("Missing password"));
     }
@@ -95,6 +98,7 @@ public class ReqresInApiTests {
                         .then()
                         .spec(checkUsersListResponseSpec)
                         .extract().as(CheckUsersListResponseModel.class));
+
         List<DataResponseModel> dataListResponse = checkUsersListResponse.getData();
         SupportResponseModel supportResponse = checkUsersListResponse.getSupport();
         step("Проверить номер страницы в ответе", () ->
