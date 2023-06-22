@@ -21,7 +21,7 @@ public class UserApiTests {
                 given(requestSpec)
                         .get("/users?page=2")
                         .then()
-                        .spec(checkUsersListResponseSpec)
+                        .spec(statusCodeIs200ResponseSpec)
                         .extract().as(CheckUsersListResponseModel.class));
 
         List<DataResponseModel> dataListResponse = checkUsersListResponse.getData();
@@ -94,6 +94,6 @@ public class UserApiTests {
                         .when()
                         .delete("/users/2")
                         .then()
-                        .spec(deleteUserResponseSpec));
+                        .spec(statusCodeIs204ResponseSpec));
     }
 }

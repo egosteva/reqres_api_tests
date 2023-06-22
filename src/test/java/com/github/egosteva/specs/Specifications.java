@@ -19,6 +19,12 @@ public class Specifications {
             .baseUri("https://reqres.in")
             .basePath("/api");
 
+    public static ResponseSpecification statusCodeIs200ResponseSpec = new ResponseSpecBuilder()
+            .log(STATUS)
+            .log(BODY)
+            .expectStatusCode(200)
+            .build();
+
     public static ResponseSpecification createUserResponseSpec = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)
@@ -41,14 +47,8 @@ public class Specifications {
             .expectBody("error", notNullValue())
             .build();
 
-    public static ResponseSpecification deleteUserResponseSpec = new ResponseSpecBuilder()
+    public static ResponseSpecification statusCodeIs204ResponseSpec = new ResponseSpecBuilder()
             .log(STATUS)
             .expectStatusCode(204)
-            .build();
-
-    public static ResponseSpecification checkUsersListResponseSpec = new ResponseSpecBuilder()
-            .log(STATUS)
-            .log(BODY)
-            .expectStatusCode(200)
             .build();
 }
