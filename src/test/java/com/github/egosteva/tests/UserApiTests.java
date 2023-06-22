@@ -15,6 +15,34 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class UserApiTests {
 
     @Test
+    @DisplayName("Получение списка пользователей")
+    void checkUsersListTest() {
+        CheckUsersListResponseModel checkUsersListResponse = step("Сделать запрос на получение списка пользователей", () ->
+                given(requestSpec)
+                        .get("/users?page=2")
+                        .then()
+                        .spec(checkUsersListResponseSpec)
+                        .extract().as(CheckUsersListResponseModel.class));
+
+        List<DataResponseModel> dataListResponse = checkUsersListResponse.getData();
+        SupportResponseModel supportResponse = checkUsersListResponse.getSupport();
+        step("Проверить номер страницы в ответе", () ->
+                assertThat(checkUsersListResponse.getPage()).isEqualTo(2));
+        step("Проверить id первого пользователя в списке", () ->
+                assertThat(dataListResponse.get(0).id).isEqualTo(7));
+        step("Проверить email первого пользователя в списке", () ->
+                assertThat(dataListResponse.get(0).email).isEqualTo("michael.lawson@reqres.in"));
+        step("Проверить first_name первого пользователя в списке", () ->
+                assertThat(dataListResponse.get(0).first_name).isEqualTo("Michael"));
+        step("Проверить last_name первого пользователя в списке", () ->
+                assertThat(dataListResponse.get(0).last_name).isEqualTo("Lawson"));
+        step("Проверить аватар первого пользователя в списке", () ->
+                assertThat(dataListResponse.get(0).avatar).isEqualTo("https://reqres.in/img/faces/7-image.jpg"));
+        step("Проверить адрес support url", () ->
+                assertThat(supportResponse.getUrl()).isEqualTo("https://reqres.in/#support-heading"));
+    }
+
+    @Test
     @DisplayName("Создание пользователя")
     void createUserTest() {
         String userName = "morpheus",
@@ -40,7 +68,7 @@ public class UserApiTests {
 
     @Test
     @DisplayName("Обновление данных пользователя")
-    void updateUserModelsTest() {
+    void updateUserTest() {
         String userJob = "zion resident";
 
         UpdateUserBodyModel updateUserBody = new UpdateUserBodyModel();
@@ -60,40 +88,12 @@ public class UserApiTests {
 
     @Test
     @DisplayName("Удаление пользователя")
-    void deleteUserModelsTest() {
+    void deleteUserTest() {
         step("Сделать запрос на удаление пользователя и проверить статус-код ответа", () ->
                 given(requestSpec)
                         .when()
                         .delete("/users/2")
                         .then()
                         .spec(deleteUserResponseSpec));
-    }
-
-    @Test
-    @DisplayName("Получение списка пользователей")
-    void checkUsersListModelsTest() {
-        CheckUsersListResponseModel checkUsersListResponse = step("Сделать запрос на получение списка пользователей", () ->
-                given(requestSpec)
-                        .get("/users?page=2")
-                        .then()
-                        .spec(checkUsersListResponseSpec)
-                        .extract().as(CheckUsersListResponseModel.class));
-
-        List<DataResponseModel> dataListResponse = checkUsersListResponse.getData();
-        SupportResponseModel supportResponse = checkUsersListResponse.getSupport();
-        step("Проверить номер страницы в ответе", () ->
-                assertThat(checkUsersListResponse.getPage()).isEqualTo(2));
-        step("Проверить id первого пользователя в списке", () ->
-                assertThat(dataListResponse.get(0).id).isEqualTo(7));
-        step("Проверить email первого пользователя в списке", () ->
-                assertThat(dataListResponse.get(0).email).isEqualTo("michael.lawson@reqres.in"));
-        step("Проверить first_name первого пользователя в списке", () ->
-                assertThat(dataListResponse.get(0).first_name).isEqualTo("Michael"));
-        step("Проверить last_name первого пользователя в списке", () ->
-                assertThat(dataListResponse.get(0).last_name).isEqualTo("Lawson"));
-        step("Проверить аватар первого пользователя в списке", () ->
-                assertThat(dataListResponse.get(0).avatar).isEqualTo("https://reqres.in/img/faces/7-image.jpg"));
-        step("Проверить адрес support url", () ->
-                assertThat(supportResponse.getUrl()).isEqualTo("https://reqres.in/#support-heading"));
     }
 }

@@ -13,9 +13,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DisplayName("API тесты для сайта Reqres.in")
 public class AuthApiTest {
+
     @Test
     @DisplayName("Неуспешная регистрация")
-    void unsuccessfulRegisterModelsTest() {
+    void unsuccessfulRegisterTest() {
         String userEmail = "sydney@fife";
 
         UnsuccessfulRegisterBodyModel unsuccessfulRegisterBody = new UnsuccessfulRegisterBodyModel();
