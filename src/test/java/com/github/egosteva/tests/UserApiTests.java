@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DisplayName("API тесты для сайта Reqres.in")
-public class ReqresInApiTests {
+public class UserApiTests {
 
     @Test
     @DisplayName("Создание пользователя")
@@ -56,26 +56,6 @@ public class ReqresInApiTests {
 
         step("Проверить работу пользователя в теле ответа", () ->
                 assertThat(updateUserResponse.getJob()).isEqualTo(userJob));
-    }
-
-    @Test
-    @DisplayName("Неуспешная регистрация")
-    void unsuccessfulRegisterModelsTest() {
-        String userEmail = "sydney@fife";
-
-        UnsuccessfulRegisterBodyModel unsuccessfulRegisterBody = new UnsuccessfulRegisterBodyModel();
-        unsuccessfulRegisterBody.setEmail(userEmail);
-        UnsuccessfulRegisterResponseModel unsuccessfulRegisterResponse = step("Сделать запрос на регистрацию без указания пароля", () ->
-                given(requestSpec)
-                        .body(unsuccessfulRegisterBody)
-                        .when()
-                        .post("/register")
-                        .then()
-                        .spec(unsuccessfulRegisterResponseSpec)
-                        .extract().as(UnsuccessfulRegisterResponseModel.class));
-
-        step("Проверить, что в ответе текст ошибки 'Missing password'", () ->
-                assertThat(unsuccessfulRegisterResponse.getError()).isEqualTo("Missing password"));
     }
 
     @Test
