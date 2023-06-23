@@ -52,13 +52,15 @@ gradle clean test
 <a id="jenkins"></a>
 ## <img src="media/logo/Jenkins.svg" width="25" height="25"/></a> Запуск тестов в Jenkins
 
-<a target="_blank" href="https://jenkins.autotests.cloud/job/18-ghostovu-reqres-api-tests ">Сборка в Jenkins</a>
+<a target="_blank" href="https://jenkins.autotests.cloud/job/Students/job/18-ghostovu-reqres-api-tests ">Сборка в Jenkins</a>
 <p align="center">
 
-<a href="https://jenkins.autotests.cloud/job/18-ghostovu-reqres-api-tests/"><img src="media/screenshots/jenkinsMain.jpg" alt="Jenkins"/></a>
+<p align="center">
+<a><img title="Jenkins Job" src="media/screenshots/jenkinsMain.jpg" alt="Jenkins"/></a>
+</p>
 
 <a id="allure"></a>
-## <img src="media/logo/Allure_Report.svg" width="25" height="25"/></a> Отчеты в [Allure Report](https://jenkins.autotests.cloud/job/18-ghostovu-reqres-api-tests/1/allure/)
+## <img src="media/logo/Allure_Report.svg" width="25" height="25"/></a> Отчеты в [Allure Report](https://jenkins.autotests.cloud/job/Students/job/18-ghostovu-reqres-api-tests/5/allure/)
 
 ### Главная страница
 
